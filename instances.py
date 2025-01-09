@@ -14,7 +14,12 @@ validLabels = df["Name"].unique().tolist()
 def distanceTuples(t1, t2):
     return ((t1[0] - t2[0])**2 + (t1[1] - t2[1])**2)**0.5
 
-def getInstance(listObjectsLabels:list[str], listTeleportLabels:list[str]=["Teleport", "Statue of Seven", "Domain"]):
+def getInstance(listObjectsLabels:list[str]|str, listTeleportLabels:list[str]|str=["Teleport", "Statue of Seven", "Domain"]):
+
+    if isinstance(listObjectsLabels, str):
+        listObjectsLabels = [listObjectsLabels]
+    if isinstance(listTeleportLabels, str):
+        listTeleportLabels = [listTeleportLabels]
 
     if any(label not in validLabels for label in listObjectsLabels):
         raise Exception("Invalid object label")
@@ -38,7 +43,12 @@ def getInstance(listObjectsLabels:list[str], listTeleportLabels:list[str]=["Tele
     return listObjects, listTeleports
 
 
-def getOptimizedInstance(listObjectsLabels:list[str], listTeleportLabels:list[str]=["Teleport", "Statue of Seven", "Domain"]):
+def getOptimizedInstance(listObjectsLabels:list[str]|str, listTeleportLabels:list[str]|str=["Teleport", "Statue of Seven", "Domain"]):
+
+    if isinstance(listObjectsLabels, str):
+        listObjectsLabels = [listObjectsLabels]
+    if isinstance(listTeleportLabels, str):
+        listTeleportLabels = [listTeleportLabels]
 
     listObjects, listTeleports = getInstance(listObjectsLabels, listTeleportLabels)
 
