@@ -1,6 +1,9 @@
 import pandas as pd
 
 df = pd.read_csv("./scrapping/locations.csv")
+df = df.drop_duplicates()
+df.reset_index(inplace=True)
+
 validLabels = df["Name"].unique().tolist()
 
 
@@ -60,7 +63,7 @@ if __name__ == "__main__":
     import matplotlib.pyplot as plt
 
 
-    listObjects, listTeleports = getOptimizedInstance(["Valberry", "Violetgrass"])
+    listObjects, listTeleports = getOptimizedInstance(["Violetgrass"])
 
     plt.plot([i[0] for i in listObjects], [i[1] for i in listObjects], ".", label="Objects")
     plt.plot([i[0] for i in listTeleports], [i[1] for i in listTeleports], ".", label="Teleports")
