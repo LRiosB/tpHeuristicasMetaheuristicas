@@ -14,6 +14,7 @@ def nearestNeighborTeleports(listObjects, listTeleports, numberOfObjects=None):
 
     collectedObjects = [False]*len(listObjects)
     count = 0
+    totalDistanceWalked = 0
     pathes = []
 
     endpointInfo = [None]*len(listObjects) 
@@ -53,9 +54,11 @@ def nearestNeighborTeleports(listObjects, listTeleports, numberOfObjects=None):
 
             distance = distanceTuples(listObjects[objectIndex], listTeleports[teleportIndex])
 
-            edge = Edge(objectIndex, teleportIndex, distance, "teleport-to-object")
+            edge = Edge(teleportIndex, objectIndex, distance, "teleport-to-object")
 
             listEdges.append(edge)
+
+            # print(f"\tAdded edge {edge.originIndex} -> {edge.destinationIndex}, of type {edge.type} and distance {edge.distance} to pathes")
     
 
     # make the list a heap
@@ -73,8 +76,14 @@ def nearestNeighborTeleports(listObjects, listTeleports, numberOfObjects=None):
             not collectedObjects[edge.destinationIndex] and
             (edge.type == "teleport-to-object" or endpointInfo[edge.originIndex] is not None)
         ):
+            # print(f"\tRemoved edge {edge.originIndex} -> {edge.destinationIndex}, of type {edge.type} and distance {edge.distance} from pathes")
             edge:Edge = heapq.heappop(listEdges)
 
+        # debug
+        # print(f"\tDecided to add edge {edge.originIndex} -> {edge.destinationIndex}, of type {edge.type} and distance {edge.distance} to pathes")
+
+        # add the distance
+        totalDistanceWalked += edge.distance
 
         # if it is a teleport-to-object edge, create a new path and mark that object as endpoint
         if edge.type == "teleport-to-object":
@@ -96,22 +105,28 @@ def nearestNeighborTeleports(listObjects, listTeleports, numberOfObjects=None):
             if not collectedObjects[objectIndex] and objectIndex != edge.destinationIndex:
                 distance = distanceTuples(listObjects[objectIndex], listObjects[edge.destinationIndex])
 
-                edge = Edge(objectIndex, edge.destinationIndex, distance, "object-to-object")
+                edge = Edge(edge.destinationIndex, objectIndex, distance, "object-to-object")
 
                 listEdges.append(edge)
 
+                # print(f"\tAdded edge {edge.originIndex} -> {edge.destinationIndex}, of type {edge.type} and distance {edge.distance} to pathes")
+
         # remove invalid elements from the list
+        sizeBefore = len(listEdges)
         listEdges:list[Edge] = [edge for edge in listEdges if (
             not collectedObjects[edge.destinationIndex] and
             (edge.type == "teleport-to-object" or endpointInfo[edge.originIndex] is not None)
         )]
+        sizeAfter = len(listEdges)
+        # print(f"\tRemoved {sizeBefore - sizeAfter} invalid edges from pathes")
 
         # make the list a heap again
         heapq.heapify(listEdges)
 
         count += 1
     
-    return pathes, collectedObjects
+    
+    return pathes, collectedObjects, totalDistanceWalked
 
 
 
@@ -121,8 +136,21 @@ def nearestNeighborTeleports(listObjects, listTeleports, numberOfObjects=None):
 
 if __name__ == "__main__":
 
+
+
+
+    # debug test case
+    # listObjects = [
+    #     (10, 10), (100, 100)
+    # ]
+    # listTeleports = [
+    #     (0, 3), (2, 0)
+    # ]
+
+    
     from instances import getOptimizedInstance
-    listObjects, listTeleports = getOptimizedInstance(["Violetgrass"])
+    # listObjects, listTeleports = getOptimizedInstance(["Violetgrass"])
+    listObjects, listTeleports = getOptimizedInstance(["Valberry"])
 
 
 
@@ -130,28 +158,29 @@ if __name__ == "__main__":
 
     import matplotlib.pyplot as plt
 
-    multiplier = 0.5
+    multiplier = 1
     from math import floor
     numberObjects = floor(len(listObjects) * multiplier)
-    pathes, collectedObjects = nearestNeighborTeleports(listObjects, listTeleports, numberObjects)
+    pathes, collectedObjects, totalDistance = nearestNeighborTeleports(listObjects, listTeleports, numberObjects)
 
 
 
-    # for path in pathes:
-    #     pathCoordinates = [listTeleports[path[0]]] + [listObjects[path[i]] for i in range(1, len(path))]
-    #     plt.plot([i[0] for i in pathCoordinates], [i[1] for i in pathCoordinates], "-", color="#2ca02c")
+    for path in pathes:
+        pathCoordinates = [listTeleports[path[0]]] + [listObjects[path[i]] for i in range(1, len(path))]
+        plt.plot([i[0] for i in pathCoordinates], [i[1] for i in pathCoordinates], "-", color="#2ca02c")
 
 
-    # plt.plot([i[0] for i in listObjects],   [i[1] for i in listObjects],   ".", label="Objects",   color="#1f77b4")
-    # plt.plot([i[0] for i in listTeleports], [i[1] for i in listTeleports], ".", label="Teleports", color="#ff7f0e")
+    plt.plot([i[0] for i in listObjects],   [i[1] for i in listObjects],   ".", label="Objects",   color="#1f77b4")
+    plt.plot([i[0] for i in listTeleports], [i[1] for i in listTeleports], ".", label="Teleports", color="#ff7f0e")
 
 
-    # plt.legend()
+    plt.legend()
     
-    # plt.savefig("./aux.png")
+    plt.savefig("./aux.png")
 
 
 
     pprint(pathes)
+    pprint(totalDistance)
     pprint(len(pathes))
     pprint(numberObjects)
