@@ -4,6 +4,10 @@ df = pd.read_csv("./scrapping/locations.csv")
 df = df.drop_duplicates()
 df.reset_index(inplace=True)
 
+# shifting to 0 axis
+df["xCoordinate"] = df["xCoordinate"] - df["xCoordinate"].min()
+df["yCoordinate"] = df["yCoordinate"] - df["yCoordinate"].min()
+
 validLabels = df["Name"].unique().tolist()
 
 
