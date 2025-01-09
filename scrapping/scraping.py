@@ -78,7 +78,26 @@ dict = {
     "Calla Lily": "https://genshin-impact-map.appsample.com/location?names=Calla Lily",
     "Qingxin": "https://genshin-impact-map.appsample.com/location?names=Qingxin",
     "Small Lamp Grass": "https://genshin-impact-map.appsample.com/location?names=Small Lamp Grass",
-    "Violetgrass": "https://genshin-impact-map.appsample.com/location?names=Violetgrass"
+    "Violetgrass": "https://genshin-impact-map.appsample.com/location?names=Violetgrass",
+    "Cecilia": "https://genshin-impact-map.appsample.com/location?names=Cecilia",
+    "Silk Flower": "https://genshin-impact-map.appsample.com/location?names=Silk Flower",
+    "Dandelion Seed": "https://genshin-impact-map.appsample.com/location?names=Dandelion Seed",
+    "Glaze Lily": "https://genshin-impact-map.appsample.com/location?names=Glaze Lily",
+    "Philanemo Mushroom": "https://genshin-impact-map.appsample.com/location?names=Philanemo Mushroom",
+    "Cor Lapis": "https://genshin-impact-map.appsample.com/location?names=Cor Lapis",
+    "Wolfhook": "https://genshin-impact-map.appsample.com/location?names=Wolfhook",
+    "Noctilucous Jade": "https://genshin-impact-map.appsample.com/location?names=Noctilucous Jade",
+    "Windwheel Aster": "https://genshin-impact-map.appsample.com/location?names=Windwheel Aster",
+    "Mist Flower Corolla": "https://genshin-impact-map.appsample.com/location?names=Mist Flower Corolla",
+    "Flaming Flower Stamen": "https://genshin-impact-map.appsample.com/location?names=Flaming Flower Stamen",
+    "Electro Crystal": "https://genshin-impact-map.appsample.com/location?names=Electro Crystal",
+    "Onikabuto": "https://genshin-impact-map.appsample.com/location?names=Onikabuto",
+    "Naku Weed": "https://genshin-impact-map.appsample.com/location?names=Naku Weed",
+    "Dendrobium": "https://genshin-impact-map.appsample.com/location?names=Dendrobium",
+    "Sakura Bloom": "https://genshin-impact-map.appsample.com/location?names=Sakura Bloom",
+    "Lavender Melon": "https://genshin-impact-map.appsample.com/location?names=Lavender Melon",
+    "Seagrass": "https://genshin-impact-map.appsample.com/location?names=Seagrass",
+    "Amethyst Lump": "https://genshin-impact-map.appsample.com/location?names=Amethyst Lump"
 }
 
 
