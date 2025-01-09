@@ -4,7 +4,9 @@ from pprint import pprint
 
 def nearestNeighborTeleports(listObjects, listTeleports, numberOfObjects=None):
     """
-
+    * Returns a list of pathes, where the first element is a teleport and every other one is a object
+    * Returns a list of booleans where True means the object was collected
+    * Returns a float that is the total distance walked
     """
 
     if numberOfObjects is None:
@@ -58,7 +60,7 @@ def nearestNeighborTeleports(listObjects, listTeleports, numberOfObjects=None):
 
             listEdges.append(edge)
 
-            # print(f"\tAdded edge {edge.originIndex} -> {edge.destinationIndex}, of type {edge.type} and distance {edge.distance} to pathes")
+            # print(f"\tAdded edge {edge.originIndex} -> {edge.destinationIndex}, of type {edge.type} and distance {edge.distance} to pool of edges")
     
 
     # make the list a heap
@@ -105,11 +107,11 @@ def nearestNeighborTeleports(listObjects, listTeleports, numberOfObjects=None):
             if not collectedObjects[objectIndex] and objectIndex != edge.destinationIndex:
                 distance = distanceTuples(listObjects[objectIndex], listObjects[edge.destinationIndex])
 
-                edge = Edge(edge.destinationIndex, objectIndex, distance, "object-to-object")
+                newEdge = Edge(edge.destinationIndex, objectIndex, distance, "object-to-object")
 
-                listEdges.append(edge)
+                listEdges.append(newEdge)
 
-                # print(f"\tAdded edge {edge.originIndex} -> {edge.destinationIndex}, of type {edge.type} and distance {edge.distance} to pathes")
+                # print(f"\tAdded edge {newEdge.originIndex} -> {newEdge.destinationIndex}, of type {newEdge.type} and distance {newEdge.distance} to pool of edges")
 
         # remove invalid elements from the list
         sizeBefore = len(listEdges)
@@ -149,8 +151,8 @@ if __name__ == "__main__":
 
     
     from instances import getOptimizedInstance
-    # listObjects, listTeleports = getOptimizedInstance(["Violetgrass"])
-    listObjects, listTeleports = getOptimizedInstance(["Valberry"])
+    listObjects, listTeleports = getOptimizedInstance(["Violetgrass"])
+    # listObjects, listTeleports = getOptimizedInstance(["Valberry"])
 
 
 
