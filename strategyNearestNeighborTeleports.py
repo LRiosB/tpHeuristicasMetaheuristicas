@@ -75,8 +75,8 @@ def nearestNeighborTeleports(listObjects, listTeleports, numberOfObjects=None):
         # find the smallest edge that has an uncollected object as destination and a teleport/endpoint as origin
         edge:Edge = heapq.heappop(listEdges)
         while not(
-            not collectedObjects[edge.destinationIndex] and
-            (edge.type == "teleport-to-object" or endpointInfo[edge.originIndex] is not None)
+            not collectedObjects[edge.destinationIndex] and # destination is uncollected
+            (edge.type == "teleport-to-object" or endpointInfo[edge.originIndex] is not None) # origin is a teleport/endpoint
         ):
             # print(f"\tRemoved edge {edge.originIndex} -> {edge.destinationIndex}, of type {edge.type} and distance {edge.distance} from pathes")
             edge:Edge = heapq.heappop(listEdges)
