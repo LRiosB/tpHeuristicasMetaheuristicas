@@ -18,6 +18,37 @@ def getAverageDistanceNearestNeighbor(listObjects):
     return sum(nearestNeighborArray) / len(nearestNeighborArray)
 
 
+def getCountByClusterLabel(clusterLabelObjects):
+    aux = dict()
+    for clusterLabel in clusterLabelObjects:
+        if clusterLabel not in aux:
+            aux[clusterLabel] = 0
+        aux[clusterLabel] += 1
+    return aux
+
+
+def greedyClustering(listObjects, listTeleports, clusterLabelObjects, numberOfObjects=None):
+
+    if numberOfObjects is None:
+        numberOfObjects = len(listObjects)
+    if numberOfObjects == 0:
+        return [], [False]*len(listObjects)
+    
+    if len(listObjects) != len(clusterLabelObjects):
+        raise Exception("len(listObjects) != len(clusterLabelObjects)")
+
+    collectedObjects = [False]*len(listObjects)
+    count = 0
+    totalDistanceWalked = 0
+    pathes = []
+
+    endpointInfo = [None]*len(listObjects) 
+    # objects at the end of a path are marked as endpoints
+    # this is None if said object isn't the endpoint for any path
+    # this is an integer if said object is the endpoint for a specific path
+    # said integer refers to what path this object is an endpoint of
+
+
 
 if __name__ == "__main__":
     
