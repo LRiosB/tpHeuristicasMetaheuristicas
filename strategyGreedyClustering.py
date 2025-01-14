@@ -175,6 +175,10 @@ def greedyClustering(listObjects, listTeleports, clusterLabelObjects, numberOfOb
     
     return pathes, collectedObjects, totalDistanceWalked
 
+def greedyClusteringOPTICS(listObjects, listTeleports, numberOfObjects=None):
+    clusters = OPTICS(min_samples=0.12).fit_predict(listObjects)
+    return greedyClustering(listObjects, listTeleports, clusters, numberOfObjects)
+
 if __name__ == "__main__":
     
 
