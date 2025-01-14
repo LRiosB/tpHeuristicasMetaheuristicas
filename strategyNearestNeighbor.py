@@ -15,11 +15,13 @@ def nearestNeighbor(listObjects, numberOfObjects=None):
     collectedObjects = [False]*len(listObjects)
     path = []
     count = 0
+    totalDistanceWalked = 0
 
     # user starts in a random object
     firstObjectIndex = randint(0, len(listObjects) - 1)
+    firstObjectIndex = 0
     collectedObjects[firstObjectIndex] = True
-    path.append(listObjects[firstObjectIndex])
+    path.append(firstObjectIndex)
     count += 1
 
     while count < numberOfObjects:
@@ -29,17 +31,20 @@ def nearestNeighbor(listObjects, numberOfObjects=None):
         nearestObjectDistance = float("inf")
         for i in range(len(listObjects)):
             if not collectedObjects[i]:
-                distance = distanceTuples(path[-1], listObjects[i])
+                distance = distanceTuples(listObjects[path[-1]], listObjects[i])
                 if distance < nearestObjectDistance:
                     nearestObjectIndex = i
                     nearestObjectDistance = distance
 
         # user collects it
         collectedObjects[nearestObjectIndex] = True
-        path.append(listObjects[nearestObjectIndex])
+        path.append(nearestObjectIndex)
         count += 1
+        totalDistanceWalked += nearestObjectDistance
+    
+    pathes = [[None]+path]
 
-    return path, collectedObjects
+    return pathes, collectedObjects, totalDistanceWalked
 
 
 
@@ -57,11 +62,7 @@ if __name__ == "__main__":
     multiplier = 0.5
     from math import floor
     numberObjects = floor(len(listObjects) * multiplier)
-    path, collectedObjects = nearestNeighbor(listObjects, numberObjects)
+    path, collectedObjects, distancewalked = nearestNeighbor(listObjects, numberObjects)
 
-    plt.plot([i[0] for i in listObjects], [i[1] for i in listObjects], ".", label="Objects")
-    # plt.plot([i[0] for i in listTeleports], [i[1] for i in listTeleports], ".", label="Teleports")
-    plt.plot([i[0] for i in path], [i[1] for i in path], "-", label="Path")
-    plt.legend()
-    
-    plt.savefig("./aux.png")
+    from pprint import pprint
+    pprint(path)

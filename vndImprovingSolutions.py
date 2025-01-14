@@ -5,7 +5,7 @@ from pprint import pprint
 # path[0] is a teleport or None
 # path[1] is the first element
 
-class Solution:
+class SolutionWithVND:
 
     def __init__(self, pathes, listObjects, listTeleports):
         self.pathes = pathes
@@ -288,7 +288,7 @@ if __name__ == "__main__":
     gcl = greedyClusteringOPTICS(listObjects, listTeleports, numObjects)
 
     # sol = Solution(ran, listObjects, listTeleports)
-    sol = Solution(nnt[0], listObjects, listTeleports)
+    sol = SolutionWithVND(nnt[0], listObjects, listTeleports)
     # sol = Solution(gcl[0], listObjects, listTeleports)
 
     print(nnt[2])
